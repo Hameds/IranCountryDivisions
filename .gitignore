@@ -1,0 +1,11 @@
+.DS_Store
+node_modules/
+packages/npm/*.tgz
+__pycache__/
+*.pyc
+
+# اسکریپت‌های تولید داده، عمداً منتشر نمی‌شوند
+scripts/
+
+# فایل‌های موقت و دورریز
+_to_delete/

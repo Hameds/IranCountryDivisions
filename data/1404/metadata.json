@@ -1,0 +1,51 @@
+{
+  "year": 1404,
+  "source": "مرکز آمار ایران - فایل جغرافیایی سالانه",
+  "sourceFile": "geo_1404.xlsx",
+  "rowsInSource": 105474,
+  "counts": {
+    "country": 1,
+    "province": 31,
+    "county": 484,
+    "district": 1193,
+    "ruralDistrict": 2777,
+    "city": 1481,
+    "village": 99317,
+    "urbanZone": 191
+  },
+  "total": 105475,
+  "divisionTypes": {
+    "0": {
+      "slug": "country",
+      "name": "کشور"
+    },
+    "1": {
+      "slug": "province",
+      "name": "استان"
+    },
+    "2": {
+      "slug": "county",
+      "name": "شهرستان"
+    },
+    "3": {
+      "slug": "district",
+      "name": "بخش"
+    },
+    "4": {
+      "slug": "ruralDistrict",
+      "name": "دهستان"
+    },
+    "5": {
+      "slug": "city",
+      "name": "شهر"
+    },
+    "6": {
+      "slug": "village",
+      "name": "آبادی"
+    },
+    "7": {
+      "slug": "urbanZone",
+      "name": "منطقه شهری"
+    }
+  }
+}

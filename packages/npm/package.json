@@ -1,0 +1,58 @@
+{
+  "name": "@hameds/iran-country-divisions",
+  "version": "3.0.0",
+  "description": "Iran country divisions (provinces, counties, districts, rural districts, cities, urban zones and villages) from Statistical Centre of Iran — تقسیمات کشوری ایران",
+  "keywords": [
+    "iran",
+    "ایران",
+    "تقسیمات-کشوری",
+    "استان",
+    "شهرستان",
+    "province",
+    "county",
+    "city",
+    "village",
+    "geo"
+  ],
+  "license": "MIT",
+  "author": {
+    "name": "Hamed Saeedi",
+    "url": "https://github.com/Hameds"
+  },
+  "homepage": "https://github.com/Hameds/IranCountryDivisions#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Hameds/IranCountryDivisions.git",
+    "directory": "packages/npm"
+  },
+  "bugs": {
+    "url": "https://github.com/Hameds/IranCountryDivisions/issues"
+  },
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    },
+    "./data/*": "./data/*"
+  },
+  "files": [
+    "dist",
+    "data",
+    "README.md"
+  ],
+  "sideEffects": false,
+  "engines": {
+    "node": ">=16"
+  },
+  "scripts": {
+    "test": "node --test \"test/*.test.js\""
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

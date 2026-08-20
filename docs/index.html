@@ -1,0 +1,1123 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>تقسیمات کشوری ایران</title>
+<meta name="description" content="انتخاب محل بر اساس تقسیمات کشوری ایران: استان، شهرستان، بخش، دهستان، شهر، آبادی">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230071e3'/%3E%3Cpath d='M16 6c-4 0-7 3.2-7 7.2C9 18.6 16 26 16 26s7-7.4 7-12.8C23 9.2 20 6 16 6zm0 9.8a2.6 2.6 0 110-5.2 2.6 2.6 0 010 5.2z' fill='%23fff'/%3E%3C/svg%3E">
+<style>
+@font-face {
+  font-family: 'Vazirmatn';
+  src: url('https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/fonts/webfonts/Vazirmatn[wght].woff2') format('woff2 supports variations'),
+       url('https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/fonts/webfonts/Vazirmatn[wght].woff2') format('woff2-variations');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --bg: #f5f5f7;
+  --card: #ffffff;
+  --ink: #1d1d1f;
+  --ink-2: #6e6e73;
+  --ink-3: #86868b;
+  --line: rgba(0,0,0,.08);
+  --line-2: rgba(0,0,0,.04);
+  --accent: #0071e3;
+  --accent-soft: rgba(0,113,227,.08);
+  --radius: 18px;
+  --radius-sm: 12px;
+  --shadow: 0 1px 2px rgba(0,0,0,.04), 0 8px 28px rgba(0,0,0,.05);
+  --shadow-pop: 0 4px 12px rgba(0,0,0,.06), 0 24px 48px rgba(0,0,0,.12);
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Vazirmatn', -apple-system, BlinkMacSystemFont, 'Segoe UI', Tahoma, sans-serif;
+  font-size: 16px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.wrap {
+  max-width: 940px;
+  margin: 0 auto;
+  padding: 56px 20px 96px;
+}
+
+header { text-align: center; margin-bottom: 44px; }
+
+h1 {
+  font-size: 40px;
+  font-weight: 700;
+  letter-spacing: -.02em;
+  margin: 0 0 10px;
+}
+
+.sub { color: var(--ink-2); font-size: 17px; margin: 0; }
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 18px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  font-size: 13px;
+  color: var(--ink-2);
+}
+
+.badge b { font-weight: 600; color: var(--ink); }
+
+.card {
+  background: var(--card);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 8px 24px;
+  margin-bottom: 24px;
+}
+
+.field { padding: 18px 0; border-bottom: 1px solid var(--line-2); }
+.field:last-child { border-bottom: 0; }
+
+.field-label {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink-2);
+  margin-bottom: 10px;
+}
+
+.field-label .count {
+  font-weight: 400;
+  color: var(--ink-3);
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+}
+
+/* combobox ------------------------------------------------------------- */
+
+.combo { position: relative; }
+
+.combo-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 13px 16px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: #fbfbfd;
+  color: var(--ink);
+  font: inherit;
+  font-size: 16px;
+  text-align: right;
+  cursor: pointer;
+  transition: border-color .15s ease, box-shadow .15s ease, background .15s ease;
+}
+
+.combo-btn:hover:not(:disabled) { background: #fff; border-color: rgba(0,0,0,.16); }
+
+.combo-btn:focus-visible,
+.combo.open .combo-btn {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px var(--accent-soft);
+  background: #fff;
+}
+
+.combo-btn:disabled { opacity: .45; cursor: default; }
+.combo-btn .placeholder { color: var(--ink-3); }
+
+.chev {
+  flex: none;
+  width: 11px;
+  height: 11px;
+  border-left: 2px solid var(--ink-3);
+  border-bottom: 2px solid var(--ink-3);
+  transform: rotate(-45deg) translateY(-2px);
+  transition: transform .2s ease;
+}
+
+.combo.open .chev { transform: rotate(135deg) translateY(-2px); }
+
+.combo-pop {
+  position: absolute;
+  z-index: 40;
+  inset-inline: 0;
+  top: calc(100% + 8px);
+  background: rgba(255,255,255,.86);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(20px);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-pop);
+  overflow: hidden;
+  display: none;
+}
+
+.combo.open .combo-pop { display: block; }
+
+.combo-search {
+  width: 100%;
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  padding: 13px 16px;
+  font: inherit;
+  font-size: 15px;
+  background: transparent;
+  color: var(--ink);
+}
+
+.combo-search:focus { outline: none; }
+.combo-search::placeholder { color: var(--ink-3); }
+
+.combo-list {
+  max-height: 280px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 6px;
+  margin: 0;
+  list-style: none;
+}
+
+.opt {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 9px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+.opt:hover, .opt.active { background: var(--accent-soft); }
+.opt[aria-selected="true"] { color: var(--accent); font-weight: 600; }
+
+.opt .meta {
+  flex: none;
+  font-size: 12px;
+  color: var(--ink-3);
+  font-variant-numeric: tabular-nums;
+  direction: ltr;
+}
+
+.opt .tag {
+  flex: none;
+  font-size: 11px;
+  color: var(--ink-2);
+  background: rgba(0,0,0,.05);
+  border-radius: 999px;
+  padding: 1px 8px;
+}
+
+.empty { padding: 18px; text-align: center; color: var(--ink-3); font-size: 14px; }
+
+/* result --------------------------------------------------------------- */
+
+.result { padding: 22px 24px; }
+
+.crumbs {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 8px;
+  margin-bottom: 18px;
+  min-height: 30px;
+}
+
+.crumb {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.crumb .t { font-size: 11px; opacity: .7; font-weight: 400; }
+.crumb-sep { color: var(--ink-3); font-size: 12px; }
+.crumbs .hint { color: var(--ink-3); font-size: 14px; }
+
+pre.json {
+  margin: 0;
+  padding: 16px;
+  background: #1d1d1f;
+  color: #f5f5f7;
+  border-radius: var(--radius-sm);
+  direction: ltr;
+  text-align: left;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 13px;
+  line-height: 1.65;
+  overflow-x: auto;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.row h2 { font-size: 15px; font-weight: 600; margin: 0; }
+
+.btn {
+  border: 1px solid var(--line);
+  background: var(--card);
+  color: var(--ink);
+  font: inherit;
+  font-size: 13px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background .15s ease, border-color .15s ease;
+}
+
+.btn:hover { background: #f5f5f7; border-color: rgba(0,0,0,.16); }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+.btn.primary:hover { background: #0077ed; }
+.btn:disabled { opacity: .4; cursor: default; }
+
+footer {
+  text-align: center;
+  color: var(--ink-3);
+  font-size: 13px;
+  margin-top: 40px;
+  line-height: 2;
+}
+
+footer a { color: var(--ink-2); text-decoration: none; }
+footer a:hover { color: var(--accent); }
+
+.loading { text-align: center; padding: 40px; color: var(--ink-3); }
+
+/* tabs ----------------------------------------------------------------- */
+
+.tabrow { display: block; margin-top: 22px; }
+
+.tabs {
+  display: inline-flex;
+  gap: 2px;
+  padding: 3px;
+  border-radius: 999px;
+  background: rgba(0,0,0,.05);
+}
+
+.tab {
+  border: 0;
+  background: transparent;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ink-2);
+  padding: 7px 20px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background .2s ease, color .2s ease, box-shadow .2s ease;
+}
+
+.tab:hover { color: var(--ink); }
+
+.tab[aria-selected="true"] {
+  background: var(--card);
+  color: var(--ink);
+  box-shadow: 0 1px 3px rgba(0,0,0,.1);
+}
+
+.panel[hidden] { display: none; }
+
+/* guide ---------------------------------------------------------------- */
+
+.guide { padding: 8px 32px 32px; }
+
+.guide section { padding-top: 30px; }
+.guide section + section { border-top: 1px solid var(--line-2); }
+
+.guide h2 {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -.01em;
+  margin: 0 0 14px;
+}
+
+.guide h3 {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 26px 0 10px;
+}
+
+.guide p { margin: 0 0 14px; color: var(--ink); }
+.guide p.muted { color: var(--ink-2); font-size: 15px; }
+
+.guide ul { margin: 0 0 14px; padding-inline-start: 22px; }
+.guide li { margin-bottom: 6px; }
+
+.guide a { color: var(--accent); text-decoration: none; }
+.guide a:hover { text-decoration: underline; }
+
+.guide code {
+  background: rgba(0,0,0,.05);
+  border-radius: 5px;
+  padding: 1px 6px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: .88em;
+  direction: ltr;
+  unicode-bidi: embed;
+}
+
+.guide pre {
+  margin: 0 0 16px;
+  padding: 16px 18px;
+  background: #1d1d1f;
+  color: #f5f5f7;
+  border-radius: var(--radius-sm);
+  direction: ltr;
+  text-align: left;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 13px;
+  line-height: 1.7;
+  overflow-x: auto;
+}
+
+.guide pre code { background: none; padding: 0; font-size: inherit; color: inherit; }
+.guide pre .c { color: #8e8e93; }
+.guide pre .k { color: #ff9f9a; }
+.guide pre .s { color: #a8e0a0; }
+
+.guide table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0 0 18px;
+  font-size: 14.5px;
+}
+
+.guide th, .guide td {
+  text-align: right;
+  padding: 9px 12px;
+  border-bottom: 1px solid var(--line-2);
+  vertical-align: top;
+}
+
+.guide th {
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--ink-2);
+  border-bottom: 1px solid var(--line);
+}
+
+.guide tbody tr:last-child td { border-bottom: 0; }
+.guide td.num { font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+.callout {
+  border-radius: var(--radius-sm);
+  padding: 14px 18px;
+  margin: 0 0 18px;
+  font-size: 15px;
+  line-height: 1.85;
+  background: #fff8e6;
+  border: 1px solid #f2dda0;
+  color: #6b5310;
+}
+
+.callout.info { background: var(--accent-soft); border-color: rgba(0,113,227,.2); color: #12457e; }
+.callout b { font-weight: 600; }
+.callout code { background: rgba(0,0,0,.06); }
+
+@media (max-width: 600px) {
+  .guide { padding: 4px 16px 24px; }
+  .guide h2 { font-size: 19px; }
+  .tab { padding: 7px 14px; font-size: 13px; }
+}
+
+footer .made { margin-top: 6px; }
+footer .heart { font-size: 12px; vertical-align: baseline; }
+
+.notice {
+  padding: 28px 24px;
+  text-align: center;
+  color: var(--ink-2);
+  font-size: 15px;
+  line-height: 2;
+}
+
+.notice b { color: var(--ink); font-weight: 600; }
+
+.notice code {
+  display: inline-block;
+  direction: ltr;
+  margin-top: 10px;
+  padding: 10px 16px;
+  background: #f5f5f7;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 13px;
+  color: var(--ink);
+  user-select: all;
+}
+
+@media (max-width: 600px) {
+  .wrap { padding: 36px 16px 72px; }
+  h1 { font-size: 30px; }
+  .card { padding: 4px 16px; }
+  .result { padding: 18px 16px; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <h1>تقسیمات کشوری ایران</h1>
+    <p class="sub">انتخاب محل از استان تا آبادی، بر اساس داده‌های مرکز آمار ایران</p>
+    <div class="badge" id="badge" hidden></div>
+
+    <div class="tabrow"><div class="tabs" role="tablist">
+      <button class="tab" id="tab-picker" role="tab" aria-controls="panel-picker" aria-selected="true">انتخاب محل</button>
+      <button class="tab" id="tab-guide" role="tab" aria-controls="panel-guide" aria-selected="false">راهنمای استفاده</button>
+    </div></div>
+  </header>
+
+  <div class="panel" id="panel-picker" role="tabpanel" aria-labelledby="tab-picker">
+
+  <div class="card" id="picker">
+    <div class="loading" id="loading">در حال بارگذاری داده‌ها…</div>
+  </div>
+
+  <div class="card result">
+    <div class="crumbs" id="crumbs"><span class="hint">هنوز محلی انتخاب نشده است.</span></div>
+    <div class="row">
+      <h2>خروجی</h2>
+      <div>
+        <button class="btn" id="reset" disabled>پاک کردن</button>
+        <button class="btn primary" id="copy" disabled>کپی JSON</button>
+      </div>
+    </div>
+    <pre class="json" id="json">{}</pre>
+  </div>
+
+  </div><!-- /panel-picker -->
+
+  <div class="panel card guide" id="panel-guide" role="tabpanel" aria-labelledby="tab-guide" hidden>
+    <section>
+      <h2>شروع سریع</h2>
+      <p>داده‌ها در سه قالب آماده‌اند و به هیچ ابزار خاصی نیاز ندارند. آخرین سال همیشه در ریشه مخزن است؛ داده هر سال جدا هم زیر <code>data/&lt;سال&gt;/</code> نگهداری می‌شود.</p>
+      <table>
+        <thead><tr><th>فایل</th><th>توضیح</th></tr></thead>
+        <tbody>
+          <tr><td><code>data/1404/iran.csv</code></td><td>ساده‌ترین قالب، پنج ستون</td></tr>
+          <tr><td><code>data/1404/iran.json</code></td><td>آرایه‌ای از آبجکت‌ها</td></tr>
+          <tr><td><code>data/1404/iran.sql</code></td><td>MySQL · MariaDB · PostgreSQL · SQLite</td></tr>
+          <tr><td><code>data/1404/iran.sqlserver.sql</code></td><td>Microsoft SQL Server</td></tr>
+          <tr><td><code>data/1404/metadata.json</code></td><td>تعداد هر نوع و اطلاعات منبع</td></tr>
+        </tbody>
+      </table>
+      <p class="muted">سال‌های ۱۳۹۷ و ۱۳۹۸ هم با همین ساختار در <code>data/1397/</code> و <code>data/1398/</code> موجودند.</p>
+    </section>
+
+    <section>
+      <h2>فرمت داده‌ها</h2>
+      <p>هر ردیف پنج ستون دارد:</p>
+      <table>
+        <thead><tr><th>ستون</th><th>توضیح</th></tr></thead>
+        <tbody>
+          <tr><td><code>Id</code></td><td>شناسه ردیف. <b>بین سال‌ها ثابت نیست</b>؛ برای اتصال بین سال‌ها از <code>Code</code> یا جدول نگاشت استفاده کنید.</td></tr>
+          <tr><td><code>ParentCountryDivisionId</code></td><td>شناسه والد. فقط برای ردیف کشور خالی است.</td></tr>
+          <tr><td><code>Name</code></td><td>نام محل، با کاراکترهای استاندارد فارسی</td></tr>
+          <tr><td><code>Code</code></td><td>کد مرکز آمار</td></tr>
+          <tr><td><code>DivisionType</code></td><td>نوع محل</td></tr>
+        </tbody>
+      </table>
+
+      <h3>DivisionType</h3>
+      <table>
+        <thead><tr><th>مقدار</th><th>نوع</th><th>والد</th><th>تعداد در ۱۴۰۴</th></tr></thead>
+        <tbody>
+          <tr><td class="num"><code>0</code></td><td>کشور</td><td>—</td><td class="num">۱</td></tr>
+          <tr><td class="num"><code>1</code></td><td>استان</td><td>کشور</td><td class="num">۳۱</td></tr>
+          <tr><td class="num"><code>2</code></td><td>شهرستان</td><td>استان</td><td class="num">۴۸۴</td></tr>
+          <tr><td class="num"><code>3</code></td><td>بخش</td><td>شهرستان</td><td class="num">۱۱۹۳</td></tr>
+          <tr><td class="num"><code>4</code></td><td>دهستان</td><td>بخش</td><td class="num">۲۷۷۷</td></tr>
+          <tr><td class="num"><code>5</code></td><td>شهر</td><td>بخش</td><td class="num">۱۴۸۱</td></tr>
+          <tr><td class="num"><code>6</code></td><td>آبادی</td><td>دهستان</td><td class="num">۹۹۳۱۷</td></tr>
+          <tr><td class="num"><code>7</code></td><td>منطقه شهری</td><td>شهر</td><td class="num">۱۹۱</td></tr>
+        </tbody>
+      </table>
+
+      <div class="callout">
+        <b>DivisionType فقط «نوع» است، نه «عمق».</b><br>
+        تا نسخه ۲ این دو تصادفاً یکی بودند چون شماره‌ها به ترتیب عمق بالا می‌رفتند. با اضافه شدن «منطقه شهری» که زیر شهر قرار می‌گیرد، این رابطه دیگر برقرار نیست. عمق را همیشه از زنجیره <code>ParentCountryDivisionId</code> بگیرید و شرط‌هایی مثل <code>WHERE DivisionType &lt; 5</code> را بازبینی کنید.
+      </div>
+
+      <h3>کدها</h3>
+      <ul>
+        <li><b>استان</b>: دو رقمی، <code>00</code> تا <code>30</code></li>
+        <li><b>شهرستان</b>: دو رقمی، در هر استان از <code>01</code></li>
+        <li><b>بخش</b>: دو رقمی، در هر شهرستان از <code>01</code></li>
+        <li><b>دهستان</b>: چهار رقمی، در هر بخش از <code>0001</code></li>
+        <li><b>شهر و منطقه شهری</b>: چهار رقمی، در بازه <code>1001</code>–<code>1699</code> و <code>2000</code>–<code>2999</code></li>
+        <li><b>آبادی</b>: شش رقمی</li>
+      </ul>
+      <p>کد <b>شهر و منطقه شهری</b> و کد <b>آبادی</b> در کل کشور یکتا هستند. به همین دلیل می‌شود یک شهر یا آبادی را بین سال‌ها فقط با کدش دنبال کرد، حتی اگر شهرستان یا بخشش عوض شده باشد. کد بخش و دهستان یکتا نیست و برای آن‌ها به مسیر کامل نیاز دارید.</p>
+    </section>
+
+    <section>
+      <h2>مناطق شهری و issue #3</h2>
+      <p>در فایل مرکز آمار، فیلد <code>coderec = 5</code> رسماً «شهرها و مناطق شهری» است و هر دو کد چهار رقمی یکتا می‌گیرند. نتیجه‌اش این بود که «اراک» شش بار در یک بخش تکرار می‌شد:</p>
+      <table>
+        <thead><tr><th>کد</th><th>نام</th><th>نسخه ۲</th><th>نسخه ۳</th></tr></thead>
+        <tbody>
+          <tr><td class="num"><code>1101</code></td><td>اراک</td><td>شهر</td><td>شهر</td></tr>
+          <tr><td class="num"><code>1678</code></td><td>اراک ۱</td><td>شهر</td><td>منطقه شهری، زیر اراک</td></tr>
+          <tr><td class="num"><code>1679</code></td><td>اراک ۲</td><td>شهر</td><td>منطقه شهری، زیر اراک</td></tr>
+          <tr><td class="num"><code>1680</code></td><td>اراک ۳</td><td>شهر</td><td>منطقه شهری، زیر اراک</td></tr>
+          <tr><td class="num"><code>2858</code></td><td>اراک ۴</td><td>شهر</td><td>منطقه شهری، زیر اراک</td></tr>
+          <tr><td class="num"><code>2859</code></td><td>اراک ۵</td><td>شهر</td><td>منطقه شهری، زیر اراک</td></tr>
+        </tbody>
+      </table>
+      <p>در نسخه ۳، ۱۹۱ ردیف در ۳۹ شهر (تهران با ۲۲ منطقه، اصفهان ۱۵، مشهد ۱۲ و …) به <code>DivisionType = 7</code> تبدیل شدند و والدشان شهر پایه در همان بخش شد. هیچ ردیفی حذف نشده است.</p>
+      <p>نتیجه: <code>WHERE DivisionType = 5</code> فهرست تمیز شهرها را می‌دهد و اگر مناطق را هم بخواهید در <code>DivisionType = 7</code> هستند.</p>
+    </section>
+
+    <section>
+      <h2>یکسان‌سازی کاراکترهای فارسی</h2>
+      <p>فایل مرکز آمار حروف عربی و اعراب و کاراکترهای نامتعارف دارد. در تولید داده این‌ها اصلاح می‌شوند:</p>
+      <table>
+        <thead><tr><th>از</th><th>به</th><th>نمونه</th></tr></thead>
+        <tbody>
+          <tr><td><code>ي</code> <code>ى</code></td><td><code>ی</code></td><td>مرکزي ← مرکزی</td></tr>
+          <tr><td><code>ك</code></td><td><code>ک</code></td><td>كرمانشاه ← کرمانشاه</td></tr>
+          <tr><td><code>أ</code> <code>إ</code> <code>ة</code> <code>ۀ</code></td><td><code>ا</code> <code>ا</code> <code>ه</code> <code>ه</code></td><td></td></tr>
+          <tr><td>اعراب و کشیده</td><td>حذف</td><td>تهــران ← تهران</td></tr>
+          <tr><td>ارقام فارسی و عربی</td><td>ارقام لاتین</td><td></td></tr>
+          <tr><td>نیم‌فاصله بی‌اثر</td><td>حذف</td><td>احمد‌آباد ← احمدآباد</td></tr>
+        </tbody>
+      </table>
+      <p>نیم‌فاصله بعد از حرفی که به حرف بعد نمی‌چسبد (<code>ا د ذ ر ز ژ و</code> و …) هیچ اثر بصری ندارد و فقط مقایسه رشته‌ها را خراب می‌کند؛ این موارد حذف می‌شوند. نیم‌فاصله‌های معنادار مثل «اسلام‌شهر» دست‌نخورده می‌مانند.</p>
+      <p class="muted">نگارش خود مرکز آمار در برخی نام‌ها ناهماهنگ است («بندرعباس» و «بندر عباس» هر دو در فایل هستند). این موارد تغییر داده نشده‌اند، چون یکسان‌سازی‌شان حدس است نه اصلاح.</p>
+    </section>
+
+    <section>
+      <h2>استفاده از SQL</h2>
+<pre><code><span class="c"># MySQL / MariaDB</span>
+mysql -u root -p mydb &lt; data/1404/iran.sql
+
+<span class="c"># PostgreSQL</span>
+psql -d mydb -f data/1404/iran.sql
+
+<span class="c"># SQLite</span>
+sqlite3 iran.db &lt; data/1404/iran.sql
+
+<span class="c"># SQL Server</span>
+sqlcmd -S localhost -d mydb -f 65001 -i data/1404/iran.sqlserver.sql</code></pre>
+
+      <div class="callout info">
+        در MySQL دیتابیس را با <code>utf8mb4</code> بسازید وگرنه حروف فارسی درست ذخیره نمی‌شوند:<br>
+        <code>CREATE DATABASE mydb CHARACTER SET utf8mb4 COLLATE utf8mb4_persian_ci;</code>
+      </div>
+
+      <h3>نمونه پرس‌وجو — شهرهای استان تهران</h3>
+<pre><code><span class="k">SELECT</span> city.Name, county.Name <span class="k">AS</span> County
+<span class="k">FROM</span> CountryDivisions city
+<span class="k">JOIN</span> CountryDivisions district <span class="k">ON</span> district.Id = city.ParentCountryDivisionId
+<span class="k">JOIN</span> CountryDivisions county   <span class="k">ON</span> county.Id   = district.ParentCountryDivisionId
+<span class="k">JOIN</span> CountryDivisions province <span class="k">ON</span> province.Id = county.ParentCountryDivisionId
+<span class="k">WHERE</span> province.Name = <span class="s">'تهران'</span> <span class="k">AND</span> city.DivisionType = 5
+<span class="k">ORDER BY</span> county.Name, city.Name;</code></pre>
+      <p class="muted">فایل پورتابل روی PostgreSQL و SQLite واقعاً اجرا و تست شده است. برای MySQL و MariaDB فقط از دستورات استاندارد پشتیبانی‌شده استفاده شده.</p>
+    </section>
+
+    <section>
+      <h2>ارتقاء دیتابیس از نسخه ۲ به نسخه ۳</h2>
+      <p>شناسه‌ها بین سال‌ها ثابت نیستند، پس نمی‌شود جدول را ساده جایگزین کرد. پوشه <code>migrations/1398-to-1404/</code> جدول نگاشت <code>CountryDivisionIdMap</code> را می‌سازد تا کلیدهای خارجی خودتان را به‌روز کنید.</p>
+<pre><code><span class="c"># ۱) پشتیبان بگیرید</span>
+<span class="c"># ۲) جدول قدیمی حفظ و جدول نگاشت ساخته می‌شود</span>
+psql -d mydb -f migrations/1398-to-1404/upgrade.sql
+
+<span class="c"># ۳) داده سال ۱۴۰۴ بارگذاری می‌شود</span>
+psql -d mydb -f data/1404/iran.sql
+
+<span class="c"># ۴) بخش ۴ فایل upgrade.sql را روی جدول‌های خودتان اجرا کنید</span></code></pre>
+      <p>جدول <code>CountryDivisions_1398</code> دست‌نخورده باقی می‌ماند تا هر وقت خواستید مقایسه کنید. ستون <code>MatchType</code> می‌گوید نگاشت چقدر قابل اعتماد است:</p>
+      <table>
+        <thead><tr><th>MatchType</th><th>تعداد</th><th>معنی</th></tr></thead>
+        <tbody>
+          <tr><td><code>path</code></td><td class="num">۹۴۴۲۱</td><td>مسیر کدها دست‌نخورده مانده؛ محل جابه‌جا نشده.</td></tr>
+          <tr><td><code>code</code></td><td class="num">۸۴۷۷</td><td>مسیر عوض شده ولی کد یکتای ملی همان است — محل زیر شهرستان یا بخش تازه‌تشکیل‌شده‌ای رفته. چون کد شهر و آبادی در کل کشور یکتاست، این تطبیق هم قطعی است.</td></tr>
+          <tr><td>خالی</td><td class="num">۹۷۲</td><td>معادلی در ۱۴۰۴ ندارد؛ حذف یا ادغام شده. <code>NewId</code> تهی است و تصمیمش با شماست.</td></tr>
+        </tbody>
+      </table>
+      <p class="muted">۹۷۲ ردیف بی‌معادل شامل ۷۷۷ آبادی، ۱۵۶ دهستان، ۳۷ بخش و ۲ شهر است. برای بخش و دهستان کد یکتای ملی وجود ندارد، پس وقتی هم مسیر و هم نام عوض شده باشد تطبیق خودکار ممکن نیست.</p>
+    </section>
+
+    <section>
+      <h2>پکیج npm</h2>
+<pre><code>npm install @hameds/iran-country-divisions</code></pre>
+<pre><code><span class="k">import</span> { load, DivisionType } <span class="k">from</span> <span class="s">"@hameds/iran-country-divisions"</span>;
+
+<span class="k">const</span> ir = load();                       <span class="c">// جدیدترین سال موجود</span>
+<span class="k">const</span> tehran = ir.search(<span class="s">"تهران"</span>, { type: DivisionType.Province })[0];
+
+ir.children(tehran.id);                  <span class="c">// شهرستان‌های تهران</span>
+ir.cities();                             <span class="c">// همه شهرها، بدون مناطق شهری</span>
+ir.urbanZones(cityId);                   <span class="c">// مناطق یک شهر</span>
+ir.villages(ruralDistrictId);            <span class="c">// آبادی‌ها؛ فقط اینجا lazy load می‌شوند</span>
+ir.path(id);                             <span class="c">// مسیر کامل از کشور تا محل</span></code></pre>
+      <p>پکیج هیچ وابستگی ندارد و آبادی‌ها را فقط وقتی می‌خوانید بارگذاری می‌کند. جست‌وجو به <code>ی</code> و <code>ک</code> عربی، اعراب، فاصله و نیم‌فاصله حساس نیست.</p>
+      <div class="callout">
+        <b>GitHub Packages برای نصب توکن می‌خواهد.</b><br>
+        رجیستری npm گیت‌هاب حتی برای پکیج عمومی هم به access token نیاز دارد. رجیستری اصلی این پکیج <code>registry.npmjs.org</code> است که بدون احراز هویت نصب می‌شود؛ نسخه روی GitHub Packages فقط آینه است.
+      </div>
+    </section>
+
+    <section>
+      <h2>اجرای محلی این صفحه</h2>
+      <p>صفحه داده‌ها را با <code>fetch</code> می‌گیرد و مرورگرها این کار را روی <code>file://</code> بلاک می‌کنند، پس باز کردن مستقیم فایل جواب نمی‌دهد. یک وب‌سرور ساده کافی است:</p>
+<pre><code>cd docs &amp;&amp; python3 -m http.server 8000
+<span class="c"># سپس http://localhost:8000</span></code></pre>
+      <p>اگر پایتون ندارید:</p>
+<pre><code>npx serve docs
+php -S localhost:8000 -t docs</code></pre>
+      <p class="muted">برای میزبانی روی GitHub Pages در فورک خودتان: <code>Settings ← Pages ← Deploy from a branch ← Branch: master /docs</code>.</p>
+    </section>
+
+    <section>
+      <h2>تعاریف</h2>
+      <p class="muted">بر اساس سند استاندارد آدرس‌دهی مرکز آمار ایران که در <code>source/geo_standard.pdf</code> مخزن است.</p>
+      <ul>
+        <li><b>استان</b>: واحدی از تقسیمات کشوری با محدوده جغرافیایی معین که از به هم پیوستن چند شهرستان همجوار با توجه به موقعیت سیاسی، اجتماعی، فرهنگی، اقتصادی و طبیعی تشکیل می‌شود. کشور به ۳۱ استان تقسیم شده است.</li>
+        <li><b>شهرستان</b>: واحدی از تقسیمات کشوری با محدوده جغرافیایی معین که از به هم پیوستن چند بخش همجوار که از نظر عوامل طبیعی، اجتماعی، اقتصادی، سیاسی و فرهنگی واحد متناسب و همگنی را به وجود آورده‌اند.</li>
+        <li><b>بخش</b>: واحدی از تقسیمات کشوری با محدوده جغرافیایی معین که از به هم پیوستن چند دهستان همجوار مشتمل بر چندین مزرعه، مکان، روستا و احیاناً شهر تشکیل می‌شود.</li>
+        <li><b>دهستان</b>: کوچک‌ترین واحد تقسیمات کشوری با محدوده جغرافیایی معین که از به هم پیوستن چند روستا، مکان و مزرعه همجوار تشکیل می‌شود و از لحاظ محیط طبیعی، فرهنگی، اقتصادی و اجتماعی همگن است.</li>
+        <li><b>شهر</b>: محلی با حدود قانونی که در محدوده جغرافیایی بخش واقع شده و اکثریت ساکنان دائمی آن در مشاغل کسب، تجارت، صنعت، کشاورزی، خدمات و فعالیت‌های اداری اشتغال دارند، در زمینه خدمات شهری از خودکفایی نسبی برخوردار است و حداقل ده هزار نفر جمعیت دارد.</li>
+        <li><b>آبادی</b>: محدوده‌ای واقع در یک دهستان با حدود ثبتی یا عرفی مستقل و خارج از محدوده شهرها یا آبادی دیگر، که به دلیل وجود فعالیت انسان در تمام یا بخشی از آن قابل تشخیص است و معمولاً نام خاصی دارد. می‌تواند یک ده، یک مزرعه، یک مکان یا یک معدن باشد.</li>
+        <li><b>منطقه شهری</b>: بخشی از یک شهر بزرگ که مرکز آمار برای آن کد شهری جداگانه در نظر گرفته است. در فایل مرکز آمار همراه شهرها ثبت می‌شود؛ در این مخزن <code>DivisionType = 7</code> دارد و والدش شهر است.</li>
+      </ul>
+
+      <h3>نگاشت coderec مرکز آمار به DivisionType این مخزن</h3>
+      <table>
+        <thead><tr><th>coderec</th><th>معنی در سند مرکز آمار</th><th>DivisionType</th></tr></thead>
+        <tbody>
+          <tr><td class="num"><code>1</code></td><td>استان</td><td class="num"><code>1</code></td></tr>
+          <tr><td class="num"><code>2</code></td><td>شهرستان</td><td class="num"><code>2</code></td></tr>
+          <tr><td class="num"><code>3</code></td><td>بخش</td><td class="num"><code>3</code></td></tr>
+          <tr><td class="num"><code>4</code></td><td>دهستان</td><td class="num"><code>4</code></td></tr>
+          <tr><td class="num"><code>5</code></td><td>شهرها و مناطق شهری</td><td class="num"><code>5</code> یا <code>7</code></td></tr>
+          <tr><td class="num"><code>6</code></td><td>آبادی‌های نقطه‌ای</td><td class="num"><code>6</code></td></tr>
+          <tr><td class="num"><code>7</code></td><td>بلوک‌ها</td><td>در فایل سالانه نیست</td></tr>
+          <tr><td class="num"><code>8</code></td><td>آبادی‌های دارای نقشه بلوکه</td><td class="num"><code>6</code></td></tr>
+          <tr><td class="num"><code>F</code></td><td>نقاط فرعی</td><td>در فایل سالانه نیست</td></tr>
+          <tr><td class="num"><code>H</code></td><td>حوزه</td><td>فقط در فایل سرشماری</td></tr>
+        </tbody>
+      </table>
+      <p class="muted">ردیف‌های <code>coderec = 8</code> هم آبادی هستند و تنها تفاوتشان این است که نقشه بلوکه دارند؛ فیلد <code>diag</code> کد چهار رقمی آدرس‌دهی همان آبادی است.</p>
+    </section>
+
+    <section>
+      <h2>مجوز و منبع</h2>
+      <p>کد و ساختار مخزن با مجوز <b>MIT</b>. داده‌ها از <a href="https://www.amar.org.ir/" rel="noopener">مرکز آمار ایران</a>.</p>
+      <p>گزارش اشکال و درخواست سال‌های بیشتر در <a href="https://github.com/Hameds/IranCountryDivisions/issues" rel="noopener">issues مخزن</a>.</p>
+    </section>
+
+  </div><!-- /panel-guide -->
+
+  <footer>
+    داده‌ها از <a href="https://www.amar.org.ir/" rel="noopener">مرکز آمار ایران</a>
+    ·
+    <a href="https://github.com/Hameds/IranCountryDivisions" rel="noopener">مخزن پروژه در گیت‌هاب</a>
+    <div class="made">
+      ساخته شده با <span class="heart" aria-label="عشق" role="img">❤️</span> برای ایران عزیزم، توسط
+      <a href="https://github.com/Hameds" rel="noopener">حامد</a>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  var YEAR = new URLSearchParams(location.search).get("year") || "1404";
+  var BASE = "data/" + YEAR + "/";
+
+  var TYPE_LABEL = {
+    0: "کشور", 1: "استان", 2: "شهرستان", 3: "بخش",
+    4: "دهستان", 5: "شهر", 6: "آبادی", 7: "منطقه شهری"
+  };
+
+  var picker = document.getElementById("picker");
+  var loading = document.getElementById("loading");
+  var crumbsEl = document.getElementById("crumbs");
+  var jsonEl = document.getElementById("json");
+  var badge = document.getElementById("badge");
+  var copyBtn = document.getElementById("copy");
+  var resetBtn = document.getElementById("reset");
+
+  var provinceIndex = null;   // فهرست استان‌ها
+  var provinceCache = {};     // id استان -> زیردرخت کامل
+  var chain = [];             // گره‌های انتخاب‌شده از استان به پایین
+
+  // -------------------------------------------------------------- ابزارها
+
+  // برای جست‌وجو: ی و ک عربی، اعراب، نیم‌فاصله و فاصله را یکدست می‌کند
+  function foldSearch(s) {
+    return String(s)
+      .replace(/[يى]/g, "ی")
+      .replace(/ك/g, "ک")
+      .replace(/[ً-ْـ]/g, "")
+      .replace(/[‌‏‎\s]/g, "")
+      .replace(/[۰-۹]/g, function (d) { return d.charCodeAt(0) - 0x06F0; })
+      .replace(/[٠-٩]/g, function (d) { return d.charCodeAt(0) - 0x0660; });
+  }
+
+  function faDigits(n) {
+    return String(n).replace(/[0-9]/g, function (d) {
+      return String.fromCharCode(0x06f0 + Number(d));
+    });
+  }
+
+  function el(tag, cls, text) {
+    var n = document.createElement(tag);
+    if (cls) n.className = cls;
+    if (text != null) n.textContent = text;
+    return n;
+  }
+
+  function labelFor(nodes) {
+    var types = [];
+    nodes.forEach(function (n) {
+      if (types.indexOf(n.t) === -1) types.push(n.t);
+    });
+    types.sort();
+    return types.map(function (t) { return TYPE_LABEL[t]; }).join(" یا ");
+  }
+
+  // -------------------------------------------------------------- combobox
+
+  function Combo(level, label, options, onPick, selected) {
+    var field = el("div", "field");
+
+    var lab = el("div", "field-label");
+    lab.appendChild(el("span", null, label));
+    lab.appendChild(el("span", "count", options.length.toLocaleString("fa-IR") + " مورد"));
+    field.appendChild(lab);
+
+    var combo = el("div", "combo");
+    var btn = el("button", "combo-btn");
+    btn.type = "button";
+    btn.setAttribute("aria-haspopup", "listbox");
+    btn.setAttribute("aria-expanded", "false");
+
+    var btnText = el("span");
+    if (selected) {
+      btnText.textContent = selected.n;
+    } else {
+      btnText.className = "placeholder";
+      btnText.textContent = "انتخاب " + label;
+    }
+    btn.appendChild(btnText);
+    btn.appendChild(el("span", "chev"));
+
+    var pop = el("div", "combo-pop");
+    var search = el("input", "combo-search");
+    search.type = "text";
+    search.placeholder = "جست‌وجو…";
+    search.setAttribute("aria-label", "جست‌وجو در " + label);
+
+    var list = el("ul", "combo-list");
+    list.setAttribute("role", "listbox");
+
+    pop.appendChild(search);
+    pop.appendChild(list);
+    combo.appendChild(btn);
+    combo.appendChild(pop);
+    field.appendChild(combo);
+
+    var filtered = options;
+    var activeIdx = -1;
+
+    function render() {
+      list.innerHTML = "";
+      if (!filtered.length) {
+        list.appendChild(el("li", "empty", "موردی پیدا نشد"));
+        return;
+      }
+      var mixed = labelFor(options).indexOf(" یا ") !== -1;
+      filtered.slice(0, 400).forEach(function (o, i) {
+        var li = el("li", "opt");
+        li.setAttribute("role", "option");
+        li.setAttribute("aria-selected", selected && selected.i === o.i ? "true" : "false");
+        if (i === activeIdx) li.classList.add("active");
+        li.appendChild(el("span", null, o.n));
+        var right = el("span");
+        right.style.display = "flex";
+        right.style.gap = "8px";
+        right.style.alignItems = "center";
+        if (mixed) right.appendChild(el("span", "tag", TYPE_LABEL[o.t]));
+        right.appendChild(el("span", "meta", o.c));
+        li.appendChild(right);
+        li.addEventListener("mousedown", function (e) {
+          e.preventDefault();
+          close();
+          onPick(o);
+        });
+        list.appendChild(li);
+      });
+      if (filtered.length > 400) {
+        list.appendChild(el("li", "empty",
+          "و " + (filtered.length - 400).toLocaleString("fa-IR") + " مورد دیگر — عبارت دقیق‌تری بنویسید"));
+      }
+    }
+
+    function open() {
+      document.querySelectorAll(".combo.open").forEach(function (c) {
+        if (c !== combo) { c.classList.remove("open"); c.querySelector(".combo-btn").setAttribute("aria-expanded", "false"); }
+      });
+      combo.classList.add("open");
+      btn.setAttribute("aria-expanded", "true");
+      search.value = "";
+      filtered = options;
+      activeIdx = -1;
+      render();
+      search.focus();
+    }
+
+    function close() {
+      combo.classList.remove("open");
+      btn.setAttribute("aria-expanded", "false");
+    }
+
+    btn.addEventListener("click", function () {
+      combo.classList.contains("open") ? close() : open();
+    });
+
+    search.addEventListener("input", function () {
+      var q = foldSearch(search.value);
+      filtered = q
+        ? options.filter(function (o) { return foldSearch(o.n).indexOf(q) !== -1 || o.c.indexOf(q) === 0; })
+        : options;
+      activeIdx = filtered.length ? 0 : -1;
+      render();
+    });
+
+    function move(delta) {
+      if (!filtered.length) return;
+      activeIdx = Math.max(0, Math.min(filtered.length - 1, activeIdx + delta));
+      render();
+      var node = list.children[activeIdx];
+      if (node && node.scrollIntoView) node.scrollIntoView({ block: "nearest" });
+    }
+
+    search.addEventListener("keydown", function (e) {
+      if (e.key === "ArrowDown") { e.preventDefault(); move(1); }
+      else if (e.key === "ArrowUp") { e.preventDefault(); move(-1); }
+      else if (e.key === "Enter") {
+        e.preventDefault();
+        if (activeIdx >= 0 && filtered[activeIdx]) { close(); onPick(filtered[activeIdx]); }
+      } else if (e.key === "Escape") { e.preventDefault(); close(); btn.focus(); }
+    });
+
+    document.addEventListener("click", function (e) {
+      if (!combo.contains(e.target)) close();
+    });
+
+    return field;
+  }
+
+  // -------------------------------------------------------------- رندر
+
+  function childrenOf(node) {
+    return (node && node.k) ? node.k : [];
+  }
+
+  function render() {
+    picker.innerHTML = "";
+
+    // سطح ۱: استان
+    picker.appendChild(Combo(0, "استان",
+      provinceIndex.provinces.map(function (p) {
+        return { i: p.id, n: p.name, c: p.code, t: 1 };
+      }),
+      function (o) { selectProvince(o.i); },
+      chain[0] ? { i: chain[0].i, n: chain[0].n } : null));
+
+    // سطوح بعدی
+    for (var lvl = 0; lvl < chain.length; lvl++) {
+      var kids = childrenOf(chain[lvl]);
+      if (!kids.length) break;
+      (function (level, options) {
+        picker.appendChild(Combo(level + 1, labelFor(options), options,
+          function (o) { pick(level + 1, o); },
+          chain[level + 1] || null));
+      })(lvl, kids);
+    }
+
+    updateResult();
+  }
+
+  function pick(level, node) {
+    chain = chain.slice(0, level);
+    chain[level] = node;
+    render();
+  }
+
+  function selectProvince(id) {
+    if (provinceCache[id]) {
+      chain = [provinceCache[id]];
+      render();
+      return;
+    }
+    loading.textContent = "در حال بارگذاری استان…";
+    picker.innerHTML = "";
+    picker.appendChild(loading);
+    fetch(BASE + "p-" + id + ".json")
+      .then(function (r) {
+        if (!r.ok) throw new Error("HTTP " + r.status);
+        return r.json();
+      })
+      .then(function (tree) {
+        provinceCache[id] = tree;
+        chain = [tree];
+        render();
+      })
+      .catch(function (e) {
+        picker.innerHTML = "";
+        picker.appendChild(el("div", "empty", "بارگذاری استان ناموفق بود: " + e.message));
+      });
+  }
+
+  function updateResult() {
+    crumbsEl.innerHTML = "";
+    if (!chain.length) {
+      crumbsEl.appendChild(el("span", "hint", "هنوز محلی انتخاب نشده است."));
+      jsonEl.textContent = "{}";
+      copyBtn.disabled = true;
+      resetBtn.disabled = true;
+      return;
+    }
+
+    chain.forEach(function (n, i) {
+      if (i) crumbsEl.appendChild(el("span", "crumb-sep", "·"));
+      var c = el("span", "crumb");
+      c.appendChild(el("span", null, n.n));
+      c.appendChild(el("span", "t", TYPE_LABEL[n.t]));
+      crumbsEl.appendChild(c);
+    });
+
+    var last = chain[chain.length - 1];
+    var payload = {
+      year: Number(YEAR),
+      id: last.i,
+      name: last.n,
+      code: last.c,
+      divisionType: last.t,
+      divisionTypeName: TYPE_LABEL[last.t],
+      path: chain.map(function (n) {
+        return { id: n.i, name: n.n, code: n.c, divisionType: n.t };
+      })
+    };
+    jsonEl.textContent = JSON.stringify(payload, null, 2);
+    copyBtn.disabled = false;
+    resetBtn.disabled = false;
+  }
+
+  // -------------------------------------------------------------- تب‌ها
+
+  var tabs = [
+    { btn: document.getElementById("tab-picker"), panel: document.getElementById("panel-picker"), hash: "" },
+    { btn: document.getElementById("tab-guide"), panel: document.getElementById("panel-guide"), hash: "#guide" }
+  ];
+
+  function showTab(name) {
+    tabs.forEach(function (t) {
+      var on = t.btn.id === "tab-" + name;
+      t.btn.setAttribute("aria-selected", on ? "true" : "false");
+      t.panel.hidden = !on;
+      if (on && location.hash !== t.hash) {
+        history.replaceState(null, "", t.hash || location.pathname + location.search);
+      }
+    });
+  }
+
+  tabs.forEach(function (t) {
+    t.btn.addEventListener("click", function () {
+      showTab(t.btn.id.replace("tab-", ""));
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  });
+
+  if (location.hash === "#guide") showTab("guide");
+
+  copyBtn.addEventListener("click", function () {
+    navigator.clipboard.writeText(jsonEl.textContent).then(function () {
+      copyBtn.textContent = "کپی شد";
+      setTimeout(function () { copyBtn.textContent = "کپی JSON"; }, 1400);
+    });
+  });
+
+  resetBtn.addEventListener("click", function () {
+    chain = [];
+    render();
+  });
+
+  // -------------------------------------------------------------- شروع
+
+  // باز کردن مستقیم فایل با file:// کار نمی‌کند، چون مرورگر fetch را روی
+  // مبدأ file بلاک می‌کند. کاربر باید یک وب‌سرور ساده بالا بیاورد.
+  if (location.protocol === "file:") {
+    picker.innerHTML = "";
+    var notice = el("div", "notice");
+    notice.appendChild(el("b", null, "این صفحه را نمی‌شود مستقیم از روی فایل باز کرد."));
+    notice.appendChild(document.createElement("br"));
+    notice.appendChild(el("span", null,
+      "مرورگر اجازه خواندن داده‌ها را با file:// نمی‌دهد. در پوشه docs یک وب‌سرور ساده اجرا کنید:"));
+    var code = el("code", null, "cd docs && python3 -m http.server 8000");
+    notice.appendChild(code);
+    notice.appendChild(document.createElement("br"));
+    notice.appendChild(el("span", null, "و بعد http://localhost:8000 را باز کنید."));
+    picker.appendChild(notice);
+    return;
+  }
+
+  fetch(BASE + "index.json")
+    .then(function (r) {
+      if (!r.ok) throw new Error("HTTP " + r.status);
+      return r.json();
+    })
+    .then(function (idx) {
+      provinceIndex = idx;
+      badge.hidden = false;
+      badge.innerHTML = "";
+      badge.appendChild(el("span", null, "تقسیمات کشوری سال"));
+      badge.appendChild(el("b", null, faDigits(idx.year)));
+      badge.appendChild(el("span", null, "·"));
+      badge.appendChild(el("span", null,
+        idx.provinces.length.toLocaleString("fa-IR") + " استان"));
+      render();
+    })
+    .catch(function (e) {
+      loading.textContent = "بارگذاری داده‌ها ناموفق بود: " + e.message;
+    });
+})();
+</script>
+</body>
+</html>
